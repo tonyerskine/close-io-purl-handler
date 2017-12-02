@@ -25,12 +25,9 @@ function postNote(callback) {
         path: "/api/v1/activity/note/", 
         method: 'POST',
         auth: apiKey + ":",
-        // body: post_data,
         headers: {
           'Content-Type': 'application/json',
           'Content-Length': Buffer.byteLength(post_data)//,
-        //   'Accept': 'application/json',
-        //   'Transfer-Encoding': 'identity'
         }
     };
     
@@ -53,7 +50,6 @@ function postNote(callback) {
     });
     
     // post the data
-    // post_req.write(post_data);
     post_req.end(post_data);
 }
 
