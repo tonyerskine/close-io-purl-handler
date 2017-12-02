@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  close-io-purl-handler:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Description: ''
+      Handler: index.handler
+      MemorySize: 128
+      Role: 'arn:aws:iam::836233235704:role/service-role/close-io-purl-handler-lambda'
+      Runtime: nodejs6.10
+      Timeout: 3
