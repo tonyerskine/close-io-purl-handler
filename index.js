@@ -1,9 +1,8 @@
 'use strict';
- 
+
 console.log('Loading function');
 
 const https = require('https');
-const querystring = require('querystring');
 
 
 var apiKey = process.env.API_KEY;
@@ -19,11 +18,6 @@ var post_data = JSON.stringify({
 	"lead_id":"lead_lJTA56R67Tcd8Z412p8yq9HAo3PuwpVpSDkyb1Q2gb6",
 	"note":"bacon and eggs"
 });
-
-// var post_data = {
-// 	"lead_id":"lead_lJTA56R67Tcd8Z412p8yq9HAo3PuwpVpSDkyb1Q2gb6",
-// 	"note":"bacon" + Date.now()
-// };
 
 function postNote(callback) {
     var post_options = { 
