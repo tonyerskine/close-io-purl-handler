@@ -3,7 +3,8 @@
         "lambda": {
             "orgName": "Test Organization",
             "url": "www.google.com",
-            "leadId": "lead_lJTA56R67Tcd8Z412p8yq9HAo3PuwpVpSDkyb1Q2gb6"
+            "leadId": "lead_lJTA56R67Tcd8Z412p8yq9HAo3PuwpVpSDkyb1Q2gb6",
+            "contactId": "cont_fFkczw9vc6hTeTUmvw5UVJghZIPdjxeQGiNYw78sZiy"
         }
     }
 }

@@ -7,19 +7,26 @@ const https = require('https');
 
 var apiKey = process.env.API_KEY;
 var leadId = null;
+var contactId = null;
+var url = null;
 
 exports.handler = (event, context, callback) => {
     leadId = event.leadId;
-    console.log("leadId: " + leadId);
-    postNote((result) => callback(null, result));
+    url = event.url;
+    contactId = event.contactId;
+    // getContact( postNote, (result) => callback(null, result) );
+    getContact( function(contact) {
+        postNote(contact, (postResult) => callback(null, postResult));
+    });
 };
 
-var post_data = JSON.stringify({
-	"lead_id":"lead_lJTA56R67Tcd8Z412p8yq9HAo3PuwpVpSDkyb1Q2gb6",
-	"note":"bacon and eggs"
-});
+function postNote(contact, callback) {
+    console.log(JSON.stringify(contact));
+    var post_data = JSON.stringify({
+    	"lead_id": leadId,
+    	"note": (contact.body.name  || contact.body.emails[0].email || "Someone") + " visited the following page:\n" + url
+    });
 
-function postNote(callback) {
     var post_options = { 
         host: "app.close.io", 
         path: "/api/v1/activity/note/", 
@@ -53,8 +60,8 @@ function postNote(callback) {
     post_req.end(post_data);
 }
 
-function getLead(callback) {
-    var options = { host: "app.close.io", path: "/api/v1/lead/" + leadId + "/", auth: apiKey + ":" };
+function getContact(callback, cbsq) {
+    var options = { host: "app.close.io", path: "/api/v1/contact/" + contactId + "/", auth: apiKey + ":" };
 
     return https.get(options, function(response) {
         var body = '';
@@ -62,16 +69,13 @@ function getLead(callback) {
             body += d;
         });
         response.on('end', function() {
-            console.log("status: " + response.statusCode);
-            console.log("body: \n" + body);
-            console.log("\n\n\n");
             callback({
                 statusCode: response.statusCode,
                 body: JSON.parse(body),
                 headers: {
                     'Content-Type': 'application/json',
                 },
-            });
+            }, cbsq);
         });
     });
 }
